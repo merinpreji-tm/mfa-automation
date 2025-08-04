@@ -1,7 +1,4 @@
 import ExcelJS from "exceljs";
-import {generateToken} from 'authenticator';
-import dotenv from 'dotenv';
-dotenv.config();
 
 class SignInPage {
     constructor() {
@@ -13,7 +10,7 @@ class SignInPage {
         this.$verificationCodeOption = () => $(`//div[contains(text(),"Use a verification code")]`);
         this.$yesButton = () => $(`//input[@value="Yes"]`);
         this.$otpField = () => $(`//input[@name="otc"]`); // MFA OTP input
-        // this.$signInRequest = () => $(`//div[contains(text(),"Approve sign in request")]`);
+        this.$signInRequest = () => $(`//div[contains(text(),"Approve sign in request")]`)
     }
 
     async signIn(email, password) {
@@ -23,22 +20,22 @@ class SignInPage {
             async () => (await this.$label().getText()) === 'Enter password',
             {
                 timeout: 10000,
-                timeoutMsg: 'Expected text to be "Enter password" within 10s'
+                timeoutMsg: 'Expected text to be "Enter password" within 5s'
             }
         );
         await this.$passwordField().setValue(password);
         await this.$button().click();
-        await this.$signInAnotherWay().click();
-        await this.$verificationCodeOption().click();
-
         await browser.pause(10000);
-        // const otpCode = generateToken(process.env.MFA_SECRET);
-        // console.log(`Generated OTP: ${otpCode}`);
-        // await this.$otpField().setValue(otpCode);
-        // await this.$button().click();
-        // if (await this.$yesButton().isDisplayed()) {
+        if (await this.$signInRequest().isDisplayed()) {
+            await browser.waitUntil(
+                async () => !(await this.$signInRequest().isDisplayed()),
+                {
+                    timeout: 20000,
+                    timeoutMsg: "Expected 'Approve sign in request' to disappear"
+                }
+            );
+        }
         await this.$yesButton().click();
-        // }
     }
 
     async readExcelFile(filePath, sheetName = null) {
