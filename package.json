@@ -1,0 +1,19 @@
+{
+  "name": "mfa-automation",
+  "type": "module",
+  "devDependencies": {
+    "@wdio/allure-reporter": "^9.18.0",
+    "@wdio/cli": "^9.18.4",
+    "@wdio/jasmine-framework": "^9.18.0",
+    "@wdio/local-runner": "^9.18.4",
+    "@wdio/spec-reporter": "^9.18.0"
+  },
+  "scripts": {
+    "test": "wdio run ./wdio.conf.js"
+  },
+  "dependencies": {
+    "authenticator": "^1.1.5",
+    "dotenv": "^17.2.1",
+    "exceljs": "^4.4.0"
+  }
+}
