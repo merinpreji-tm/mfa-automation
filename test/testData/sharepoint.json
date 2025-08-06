@@ -1,0 +1,16 @@
+{
+    "url": "https://testingmavens-my.sharepoint.com/personal/jithin_jose_testingmavens_com/Documents/Test/testinput.xlsx",
+    "titles": {
+        "signIn": "Sign in to your account",
+        "working": "Working..."
+    },
+    "credentials":{
+        "email": "merin.reji@testingmavens.com",
+        "password": "million$b@bY#23"
+    },
+    "excelFile": {
+        "downloadDir": "C:/Users/MerinPReji/Downloads",
+        "fileName": "testinput.xlsx"
+    }
+
+}
